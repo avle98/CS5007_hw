@@ -25,7 +25,6 @@ class Point:
 
     # returns coordinates with specific format
     def toString(self):
-        # return s = "(" + str(self.x) + ", " + str(self.y) + ")"
         return "({}, {})".format(self.x, self.y)
 
     # compares 2 Points to see if they are similar or different
@@ -82,12 +81,12 @@ class Rectangle:
 
     # returns reference to point representing left bottom corner of rectangle
     def getOrigin(self):
-        o = str(self.point)
+        o = self.point.x, self.point.y
         return o
 
     # returns string with specific format
     def toString(self):
-        s = "{}, L={}, H={}".format(self.point, self.width, self.height)
+        s = "({}, {}), L={}, H={}".format(self.point.x, self.point.y, self.width, self.height)
         return s
 
 
@@ -166,9 +165,20 @@ print("r3 with moveTo method on p3 --> " + r3.toString())  # calls toString meth
 
 #   Create a class Tour with a single instance variable self.MyList that will refer to a list object
 class Tour:
-    def __init__(self, myList, filename):
-        self.myList = myList
-        self.filename = filename
+    def __init__(self, filename):
+        file = open(filename, 'r')
+        self.myList = []
+        for line in file.readlines():
+            row = []
+            for value in line.split(","):
+                row.append(value.strip())
+                self.myList.append(row)
+
+if __name__ == '__main__':
+    print("\n\nPART 4: EXTRA CREDIT - READ FILE")
+    filename = input('Enter input filename: ')
+    t = Tour(filename)
+    print(t.myList)
 
 
-# END
+#   END
