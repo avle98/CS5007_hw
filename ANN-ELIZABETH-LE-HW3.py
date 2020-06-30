@@ -24,7 +24,7 @@ class Point:
         self.y = y
 
     # returns coordinates with specific format
-    def toString(self):
+    def __str__(self):
         # return s = "(" + str(self.x) + ", " + str(self.y) + ")"
         return "({}, {})".format(self.x, self.y)
 
@@ -40,7 +40,7 @@ print("PART 1: POINT")
 # create points p1 and p2
 p1 = Point(0, 0)
 p2 = Point(1, 2)
-print("p1 and p2 --> " + p1.toString() + " " + p2.toString())  # print out coordinates of 2 points
+print("p1 and p2 --> " + p1.__str__() + " " + p2.__str__())  # print out coordinates of 2 points
 print("p1 equals p2? --> " + p1.equals(p2))  # print out result of applying equals method of p1 to p2
 
 # set x coordinate of p2 equal to x coordinate of p1
@@ -49,13 +49,13 @@ p2.setX(p1X)
 # set y coordinate of p2 equal to y coordinate of p1
 p1Y = p1.getY()
 p2.setY(p1Y)
-print("\nset p2's coordinates to p1's --> " + p2.toString())  # print out result of applying equals method of p1 to p2
+print("\nset p2's coordinates to p1's --> " + p2.__str__())  # print out result of applying equals method of p1 to p2
 print("p1 equals p2? --> " + p1.equals(p2))  # print out result of applying equals method of p1 to p2
 
 # increment 1 to x coordinate of p2
 p2plus = p2.getX()
 p2.setX(p2plus + 1)
-print("\np2's x coordinate --> " + p2.toString())  # print out new coordinates of p2
+print("\np2's x coordinate --> " + p2.__str__())  # print out new coordinates of p2
 print("p1 equals p2? --> " + p1.equals(p2))  # print out result of applying equals method of p1 to p2
 
 
@@ -64,9 +64,9 @@ print("p1 equals p2? --> " + p1.equals(p2))  # print out result of applying equa
 #   -------
 
 #   State a class Rectangle that has 3 instance variables: a point, a rational width, and a rational height
-class Rectangle(Point):
-    def __init__(self, w, h, x=0.0, y=0.0):
-        Point.__init__(self, x, y)
+class Rectangle:
+    def __init__(self, point, w, h):
+        self.origin = point
         self.width = w
         self.height = h
 
@@ -82,30 +82,33 @@ class Rectangle(Point):
 
     # returns reference to point representing left bottom corner of rectangle
     def getOrigin(self):
-        return Point.toString(self)
+        o = str(self.origin)
+        return o
 
     # returns string with specific format
     def toString(self):
-        s = "({}, {}), L={}, H={}".format(self.x, self.y, self.width, self.height)
+        s = "{}, L={}, H={}".format(self.origin, self.width, self.height)
         return s
 
 
 print("\n\nPART 2: RECTANGLE")
 # create rectangles r1 and r2
-r1 = Rectangle(2, 5.5, 0, 0)  # coordinates are p1
-r2 = Rectangle(3, 6, 1, 2)  # coordinates are p2
+p1 = Point(0,0)
+r1 = Rectangle(p1, 2, 5.5)
+p2 = Point(1, 2)
+r2 = Rectangle(p2, 3, 6)
 
 # print out bottom left corner and perimeter of r1
-print("r1 bottom left corner --> " + r1.getOrigin())
-print("r1 perimeter --> " + str(r1.perimeter()))
+print("r1 bottom left corner --> ", r1.getOrigin())
+print("r1 perimeter --> ", r1.perimeter())
 
 # print out bottom left corner and area of r2
-print("r2 bottom left corner --> " + r2.getOrigin())  # calls toString method
-print("r2 area --> " + str(r2.area()))
+print("r2 bottom left corner --> ", r2.getOrigin())  # calls toString method
+print("r2 area --> ", r2.area())
 
 # print toString method for r1 and r2
-print("r1 toString --> " + r1.toString())
-print("r2 toString --> " + r2.toString())
+print("r1 toString --> ", r1.toString())
+print("r2 toString --> ", r2.toString())
 
 
 #   -------
@@ -115,7 +118,8 @@ print("r2 toString --> " + r2.toString())
 #   State a class MovableRectangle that inherits from the class Rectangle
 #   This class has 3 arguments: a point and 2 rational values to be assigned to 3 instance variables
 class MovableRectangle(Rectangle):
-    def __init__(self, w, h, move=False, x=0.0, y=0.0):
+    def __init__(self, point, w, h, move=False):
+        self.origin = point
         Rectangle.__init__(self, w, h, x, y)
         self.move = move
 
@@ -143,6 +147,7 @@ class MovableRectangle(Rectangle):
 
 print("\n\nPART 3: MOVABLE RECTANGLE")
 # create movable rectangle r3
+p1
 r3 = MovableRectangle(2, 2, False, 0, 0)
 print("r3 toString --> " + r3.toString())  # calls toString method
 
