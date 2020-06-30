@@ -69,8 +69,15 @@ print(newlist)
 #   Write a function that takes a list of integers aList as an argument,
 #   modifies this list and does not return a list.
 def clean2(aList):
-    aList = list(set(aList))
-
+    i = 0
+    while i < len(aList):
+        j = i + 1
+        while j < len(aList):
+            if aList[i] == aList[j]:
+                del aList[j]
+            else:
+                j += 1
+        i += 1
 
 # calling the function with an example
 print('\n' + "Example output for Part 3: ")
@@ -78,6 +85,7 @@ al = [1, 2, 3, 4, 4, 4, 5, 1, 2, 1, 5]
 print(al)
 clean2(al)
 print(al)
+
 
 #   -------
 #   Part 4: Function on lists
