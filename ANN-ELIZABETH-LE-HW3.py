@@ -24,7 +24,7 @@ class Point:
         self.y = y
 
     # returns coordinates with specific format
-    def __str__(self):
+    def toString(self):
         # return s = "(" + str(self.x) + ", " + str(self.y) + ")"
         return "({}, {})".format(self.x, self.y)
 
@@ -40,7 +40,7 @@ print("PART 1: POINT")
 # create points p1 and p2
 p1 = Point(0, 0)
 p2 = Point(1, 2)
-print("p1 and p2 --> " + p1.__str__() + " " + p2.__str__())  # print out coordinates of 2 points
+print("p1 and p2 --> " + p1.toString() + " " + p2.toString())  # print out coordinates of 2 points
 print("p1 equals p2? --> " + p1.equals(p2))  # print out result of applying equals method of p1 to p2
 
 # set x coordinate of p2 equal to x coordinate of p1
@@ -49,13 +49,13 @@ p2.setX(p1X)
 # set y coordinate of p2 equal to y coordinate of p1
 p1Y = p1.getY()
 p2.setY(p1Y)
-print("\nset p2's coordinates to p1's --> " + p2.__str__())  # print out result of applying equals method of p1 to p2
+print("\nset p2's coordinates to p1's --> " + p2.toString())  # print out result of applying equals method of p1 to p2
 print("p1 equals p2? --> " + p1.equals(p2))  # print out result of applying equals method of p1 to p2
 
 # increment 1 to x coordinate of p2
 p2plus = p2.getX()
 p2.setX(p2plus + 1)
-print("\np2's x coordinate --> " + p2.__str__())  # print out new coordinates of p2
+print("\np2's x coordinate --> " + p2.toString())  # print out new coordinates of p2
 print("p1 equals p2? --> " + p1.equals(p2))  # print out result of applying equals method of p1 to p2
 
 
@@ -66,7 +66,7 @@ print("p1 equals p2? --> " + p1.equals(p2))  # print out result of applying equa
 #   State a class Rectangle that has 3 instance variables: a point, a rational width, and a rational height
 class Rectangle:
     def __init__(self, point, w, h):
-        self.origin = point
+        self.point = point
         self.width = w
         self.height = h
 
@@ -82,12 +82,12 @@ class Rectangle:
 
     # returns reference to point representing left bottom corner of rectangle
     def getOrigin(self):
-        o = str(self.origin)
+        o = str(self.point)
         return o
 
     # returns string with specific format
     def toString(self):
-        s = "{}, L={}, H={}".format(self.origin, self.width, self.height)
+        s = "{}, L={}, H={}".format(self.point, self.width, self.height)
         return s
 
 
@@ -118,10 +118,9 @@ print("r2 toString --> ", r2.toString())
 #   State a class MovableRectangle that inherits from the class Rectangle
 #   This class has 3 arguments: a point and 2 rational values to be assigned to 3 instance variables
 class MovableRectangle(Rectangle):
-    def __init__(self, point, w, h, move=False):
-        self.origin = point
-        Rectangle.__init__(self, w, h, x, y)
-        self.move = move
+    def __init__(self, point, w, h):
+        super().__init__(point, w, h)
+        self.move = False
 
     # sets self.move to true
     def unlock(self):
@@ -132,23 +131,22 @@ class MovableRectangle(Rectangle):
         self.move = False
 
     # detects whether rectangle is locked or unlocked
-    def moveTo(self, point):
+    def moveTo(self, newPoint):
         if self.move is True:  # if rectangle is unlocked
-            self.x = point.x  # moves rectangle so new origin is the point argument
-            self.y = point.y
+            self.point = newPoint  # moves rectangle so new origin is the point argument
         else:
             print("Warning: locked.")
 
     # returns string with specific format
     def toString(self):
-        s = "({}, {}), W={}, H={}, Movable? {}".format(self.x, self.y, self.width, self.height, self.move)
+        s = "({}, {}), W={}, H={}, Movable? {}".format(self.point.x, self.point.y, self.width, self.height, self.move)
         return s
 
 
 print("\n\nPART 3: MOVABLE RECTANGLE")
 # create movable rectangle r3
-p1
-r3 = MovableRectangle(2, 2, False, 0, 0)
+p1 = Point(0,0)
+r3 = MovableRectangle(p1, 2, 2)
 print("r3 toString --> " + r3.toString())  # calls toString method
 
 p3 = Point(5, 15)
