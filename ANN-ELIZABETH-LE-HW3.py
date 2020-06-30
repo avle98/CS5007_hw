@@ -167,13 +167,5 @@ class Tour:
         self.myList = myList
         self.filename = filename
 
-    def tour(self):
-
-
-
-#   Create a constructor that takes one string parameter, the name of a file, filename.
-#   This class deals with files representing sets of cities. 
-
-print("\n\nPART 4: EXTRA CREDIT - READ FILE")
 
 # END
