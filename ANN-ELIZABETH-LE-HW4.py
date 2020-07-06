@@ -1,184 +1,66 @@
-#   HW3 Assignment 
+#   HW4 Assignment
 #   Author: Ann-Elizabeth Le
 
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
 #   -------
-#   Part 1: Point
+#   Part 1: Archimedean spiral
 #   -------
 
-#   State a class Point that has 2 instance variables, rational coordinates self.x and self.y
-class Point:
-    def __init__(self, x=0.0, y=0.0):
-        self.x = x
-        self.y = y
+#   Draws a green Archimedean spiral with parameterized equations
+def arc():
+    t = np.arange(0, 5*math.pi, 0.01)  # set t between [0, 5*pi] with step 0.01
+    x = t * np.cos(t)  # x(t) = t.cos(t)
+    y = t * np.sin(t)  # y(t) = t.sin(t)
 
-    def getX(self):
-        return self.x
+    # plot the function using pyplot
+    plt.plot(x, y, color='green')
+    plt.show()
 
-    def getY(self):
-        return self.y
-
-    def setX(self, x):
-        self.x = x
-
-    def setY(self, y):
-        self.y = y
-
-    # returns coordinates with specific format
-    def toString(self):
-        return "({}, {})".format(self.x, self.y)
-
-    # compares 2 Points to see if they are similar or different
-    def equals(self, point):
-        if self.x == point.x and self.y == point.y:
-            return "True"
-        else:
-            return "False"
-
-
-print("PART 1: POINT")
-# create points p1 and p2
-p1 = Point(0, 0)
-p2 = Point(1, 2)
-print("p1 and p2 --> " + p1.toString() + " " + p2.toString())  # print out coordinates of 2 points
-print("p1 equals p2? --> " + p1.equals(p2))  # print out result of applying equals method of p1 to p2
-
-# set x coordinate of p2 equal to x coordinate of p1
-p1X = p1.getX()
-p2.setX(p1X)
-# set y coordinate of p2 equal to y coordinate of p1
-p1Y = p1.getY()
-p2.setY(p1Y)
-print("\nset p2's coordinates to p1's --> " + p2.toString())  # print out result of applying equals method of p1 to p2
-print("p1 equals p2? --> " + p1.equals(p2))  # print out result of applying equals method of p1 to p2
-
-# increment 1 to x coordinate of p2
-p2plus = p2.getX()
-p2.setX(p2plus + 1)
-print("\np2's x coordinate --> " + p2.toString())  # print out new coordinates of p2
-print("p1 equals p2? --> " + p1.equals(p2))  # print out result of applying equals method of p1 to p2
+#call the function
+arc()
 
 
 #   -------
-#   Part 2: Rectangle
+#   Part 2: Heart
 #   -------
 
-#   State a class Rectangle that has 3 instance variables: a point, a rational width, and a rational height
-class Rectangle:
-    def __init__(self, point, w, h):
-        self.point = point
-        self.width = w
-        self.height = h
+#   Draws a heart in dashed red lines with parameterized equations
+def heart():
+    t = np.arange(0, 2 * np.pi, 0.01)  # set t between [0, 5*pi] with step 0.01
+    x = 16 * np.sin(t)**3  # x(t) = 16sin^3(t)
+    y = 13 * np.cos(t) - 5*np.cos(2*t) - 2*np.cos(3*t) - np.cos(4*t)  # y(t) = 13cos(t) - 5cos(2t) - 2.5cos(3t) - cos(4t)
 
-    # returns perimeter of rectangle
-    def perimeter(self):
-        p = (self.width + self.height) * 2
-        return p
+    # plot the function using pyplot
+    plt.plot(x, y, color='red', linestyle='dashed')
+    plt.show()
 
-    # returns area of rectangle
-    def area(self):
-        a = self.width * self.height
-        return a
-
-    # returns reference to point representing left bottom corner of rectangle
-    def getOrigin(self):
-        o = self.point.x, self.point.y
-        return o
-
-    # returns string with specific format
-    def toString(self):
-        s = "({}, {}), L={}, H={}".format(self.point.x, self.point.y, self.width, self.height)
-        return s
-
-
-print("\n\nPART 2: RECTANGLE")
-# create rectangles r1 and r2
-p1 = Point(0,0)
-r1 = Rectangle(p1, 2, 5.5)
-p2 = Point(1, 2)
-r2 = Rectangle(p2, 3, 6)
-
-# print out bottom left corner and perimeter of r1
-print("r1 bottom left corner --> ", r1.getOrigin())
-print("r1 perimeter --> ", r1.perimeter())
-
-# print out bottom left corner and area of r2
-print("r2 bottom left corner --> ", r2.getOrigin())  # calls toString method
-print("r2 area --> ", r2.area())
-
-# print toString method for r1 and r2
-print("r1 toString --> ", r1.toString())
-print("r2 toString --> ", r2.toString())
+#call the function
+heart()
 
 
 #   -------
-#   Part 3: Movable rectangle
+#   Part 3: Graphs
 #   -------
 
-#   State a class MovableRectangle that inherits from the class Rectangle
-#   This class has 3 arguments: a point and 2 rational values to be assigned to 3 instance variables
-class MovableRectangle(Rectangle):
-    def __init__(self, point, w, h):
-        super().__init__(point, w, h)
-        self.move = False
-
-    # sets self.move to true
-    def unlock(self):
-        self.move = True
-
-    # sets self.move to false
-    def lock(self):
-        self.move = False
-
-    # detects whether rectangle is locked or unlocked
-    def moveTo(self, newPoint):
-        if self.move is True:  # if rectangle is unlocked
-            self.point = newPoint  # moves rectangle so new origin is the point argument
-        else:
-            print("Warning: locked.")
-
-    # returns string with specific format
-    def toString(self):
-        s = "({}, {}), W={}, H={}, Movable? {}".format(self.point.x, self.point.y, self.width, self.height, self.move)
-        return s
+#   Part 1:
+#   We
 
 
-print("\n\nPART 3: MOVABLE RECTANGLE")
-# create movable rectangle r3
-p1 = Point(0,0)
-r3 = MovableRectangle(p1, 2, 2)
-print("r3 toString --> " + r3.toString())  # calls toString method
+#   Part 2:
+#   Algorithm that returns the minimum number of trucks to carry products
 
-p3 = Point(5, 15)
-print("\nCan it be moved?")
-r3.moveTo(p3)  #calls moveTo method on r3 to move origin to p3
-print("r3 with moveTo method on p3 --> " + r3.toString())  # calls toString method
-
-r3.unlock()
-print("\nCan it be moved?")
-r3.moveTo(p3)  #calls moveTo method on r3 to move origin to p3
-print("r3 with moveTo method on p3 --> " + r3.toString())  # calls toString method
 
 
 #   ------------
-#   Extra credit: Read File
+#   Part 4: Algorithm
 #   ------------
 
-#   Create a class Tour with a single instance variable self.MyList that will refer to a list object
-class Tour:
-    def __init__(self, filename):
-        file = open(filename, 'r')
-        self.myList = []
-        for line in file.readlines():
-            row = []
-            for value in line.split(","):
-                row.append(value.strip())
-                self.myList.append(row)
-
-if __name__ == '__main__':
-    print("\n\nPART 4: EXTRA CREDIT - READ FILE")
-    filename = input('Enter input filename: ')
-    t = Tour(filename)
-    print(t.myList)
+#   A recursive  function using Egyptian multiplication
+def algorithm():
+    pass
 
 
 #   END
