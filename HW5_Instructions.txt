@@ -1,3 +1,8 @@
 HW5 Assignment
 Author: Ann-Elizabeth Le
 
+HOWTO run program (ANN-ELIZABETH-LE-HW5.py)
+
+To run this program with different Xtour.csv files, go to line 28 in the code which looks like the following:
+f = open('tour17.csv', 'r').read()
+Change the 'tour17.csv' to another .csv file name (i.e. 'tour26.csv')
